@@ -1,0 +1,51 @@
+# ============================================================
+# SEXTA-FEIRA — .gitignore
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.spec
+
+# --- Ambiente Virtual ---
+venv/
+.venv/
+env/
+
+# --- Variáveis de ambiente ---
+.env
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Arquivos temporários ---
+*.tmp
+*.mp3
+*.wav
+
+# --- Docker ---
+mosquitto_data/
+mosquitto_log/
+
+# --- PyInstaller ---
+dist/
+build/
+
+# --- Logs ---
+*.log
+
+# --- Arquivos da Sexta-Feira ---
+arquivos_sexta_feira/
+
+# --- Sistema Operacional ---
+Thumbs.db
+.DS_Store
+Desktop.ini
