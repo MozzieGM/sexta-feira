@@ -1,0 +1,18 @@
+# ============================================================
+# SEXTA-FEIRA — Dependências do Satélite PC
+# ============================================================
+
+# --- Áudio e Voz ---
+SpeechRecognition>=3.10.0   # Captura de áudio do microfone
+PyAudio>=0.2.13             # Backend de áudio para SpeechRecognition
+pygame>=2.5.0               # Reprodução de áudio MP3 (voz da Sexta)
+
+# --- Comunicação ---
+paho-mqtt>=1.6.0            # Cliente MQTT para receber comandos do Cérebro
+requests>=2.31.0            # HTTP para enviar áudio ao Cérebro
+
+# --- Controle do Sistema ---
+pyautogui>=0.9.54           # Controle de teclado/mouse (volume, mídia, etc.)
+
+# --- Utilitários ---
+python-dotenv>=1.0.0        # Carrega variáveis do .env
