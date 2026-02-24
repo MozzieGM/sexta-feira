@@ -1,0 +1,19 @@
+# ============================================================
+# SEXTA-FEIRA — Dependências Python do Cérebro Central
+# ============================================================
+
+# --- Framework Web ---
+fastapi>=0.104.0            # API HTTP assíncrona de alta performance
+uvicorn[standard]>=0.24.0   # Servidor ASGI para rodar o FastAPI
+python-multipart>=0.0.6     # Upload de arquivos (receber WAV dos satélites)
+
+# --- Inteligência Artificial ---
+groq>=0.4.0                 # SDK oficial da Groq (LLM + Whisper STT)
+edge-tts>=6.1.0             # Text-to-Speech neural da Microsoft (voz da Sexta)
+
+# --- Comunicação ---
+paho-mqtt>=1.6.0            # Cliente MQTT para publicar comandos no Mosquitto
+requests>=2.31.0            # HTTP requests para os ESP32 (máscara/reator)
+
+# --- Utilitários ---
+python-dotenv>=1.0.0        # Carrega variáveis do .env

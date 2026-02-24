@@ -1,0 +1,69 @@
+# ============================================================
+# SEXTA-FEIRA — Docker Compose: Cérebro Central
+# ============================================================
+# Sobe dois serviços:
+#   1. cerebro  → API FastAPI (processa áudio, IA, gera voz)
+#   2. mosquitto → Broker MQTT (roteia comandos para satélites)
+#
+# Uso:
+#   docker-compose up -d          (sobe tudo em background)
+#   docker-compose logs -f cerebro (acompanha logs do cérebro)
+#   docker-compose down           (desliga tudo)
+# ============================================================
+
+version: "3.9"
+
+services:
+  # ----------------------------------------------------------
+  # 🧠 CÉREBRO — Servidor de IA (FastAPI + Uvicorn)
+  # ----------------------------------------------------------
+  cerebro:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sexta_feira_cerebro
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-8000}:8000"         # API HTTP
+    env_file:
+      - .env                                 # Carrega variáveis de ambiente
+    environment:
+      - MQTT_HOST=mosquitto                  # Nome do serviço Docker como hostname
+      - MQTT_PORT=1883
+    volumes:
+      - ./app:/app                           # Hot-reload durante desenvolvimento
+    depends_on:
+      - mosquitto
+    networks:
+      - sexta_rede
+
+  # ----------------------------------------------------------
+  # 📡 MOSQUITTO — Broker MQTT (Carteiro de comandos)
+  # ----------------------------------------------------------
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: sexta_feira_mqtt
+    restart: unless-stopped
+    ports:
+      - "1883:1883"                          # MQTT padrão
+      - "9001:9001"                          # WebSocket (futuro: dashboard web)
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    networks:
+      - sexta_rede
+
+# ----------------------------------------------------------
+# Rede interna compartilhada entre os containers
+# ----------------------------------------------------------
+networks:
+  sexta_rede:
+    driver: bridge
+
+# ----------------------------------------------------------
+# Volumes persistentes para dados e logs do MQTT
+# ----------------------------------------------------------
+volumes:
+  mosquitto_data:
+  mosquitto_log:
